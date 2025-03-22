@@ -18,6 +18,3 @@ This project is an AI-powered interview agent that generates detailed interview 
 3. Run the application.
 4. Conduct an interview and generate a report.
 
-## License
-
-This project is licensed under the MIT License.
