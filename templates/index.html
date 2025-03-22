@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}AI Interview Agent - Home{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12 text-center mb-5">
+        <h1 class="display-4">AI Interview Agent</h1>
+        <p class="lead">
+            A smart AI-powered interviewer that conducts personalized job interviews
+            based on job descriptions and candidate resumes.
+        </p>
+        <div class="mt-4">
+            <a href="/setup-interview" class="btn btn-primary btn-lg px-4 me-2">Create New Interview</a>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-5">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Personalized Questions</h5>
+                <p class="card-text">
+                    Our AI generates relevant questions based on the job description 
+                    and candidate's resume, creating a tailored interview experience.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Natural Conversation</h5>
+                <p class="card-text">
+                    The AI interviewer conducts natural, flowing conversations with
+                    appropriate follow-up questions based on candidate responses.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Comprehensive Reports</h5>
+                <p class="card-text">
+                    After each interview, receive detailed analysis and scoring of
+                    candidate responses with key strengths and areas for improvement.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row align-items-center">
+    <div class="col-md-6">
+        <h2>How It Works</h2>
+        <ol class="list-group list-group-numbered mb-4">
+            <li class="list-group-item">Provide the job description, company information, and candidate's resume</li>
+            <li class="list-group-item">Our AI analyzes the documents and creates a personalized interview script</li>
+            <li class="list-group-item">The virtual interviewer conducts the interview with the candidate</li>
+            <li class="list-group-item">Receive a detailed evaluation report with scores and recommendations</li>
+        </ol>
+        <a href="/setup-interview" class="btn btn-outline-primary">Get Started</a>
+    </div>
+    <div class="col-md-6">
+        <img src="https://via.placeholder.com/500x300" alt="Interview Process" class="img-fluid rounded shadow">
+    </div>
+</div>
+{% endblock %}

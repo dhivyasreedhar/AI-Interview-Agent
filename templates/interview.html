@@ -1,0 +1,405 @@
+document.addEventListener('DOMContentLoaded', function() {
+    // Basic variables
+    var interviewId = '{{ interview_id }}';
+    var interviewDuration = {{ interview_duration|default(0) }};
+    var hasTimeLimit = interviewDuration > 0;
+    
+    // DOM elements
+    var chatContainer = document.getElementById('chatContainer');
+    var startPrompt = document.getElementById('startPrompt');
+    var startButton = document.getElementById('startButton');
+    var responseForm = document.getElementById('responseForm');
+    var responseInput = document.getElementById('responseInput');
+    var sendButton = document.getElementById('sendButton');
+    var sendSpinner = document.getElementById('sendSpinner');
+    var statusBadge = document.getElementById('statusBadge');
+    var completeMessage = document.getElementById('completeMessage');
+    var timeRemaining = document.getElementById('timeRemaining');
+    
+    // Timer variables
+    var timerInterval = null;
+    var remainingSeconds = 0;
+    
+    // Initialize Modal
+    var timeExceededModal = null;
+    try {
+        if (document.getElementById('timeExceededModal')) {
+            timeExceededModal = new bootstrap.Modal(document.getElementById('timeExceededModal'));
+        }
+    } catch (e) {
+        console.error('Error initializing modal:', e);
+    }
+    
+    // Speech synthesis setup
+    var synth = null;
+    var voices = [];
+    try {
+        synth = window.speechSynthesis;
+    } catch (e) {
+        console.warn('Speech synthesis not available:', e);
+    }
+    
+    // Function to populate voice list
+    function populateVoiceList() {
+        try {
+            if (synth) {
+                voices = synth.getVoices();
+                if (voices && voices.length > 0) {
+                    // Filter for English voices
+                    var englishVoices = [];
+                    for (var i = 0; i < voices.length; i++) {
+                        if (voices[i].lang && voices[i].lang.indexOf('en') !== -1) {
+                            englishVoices.push(voices[i]);
+                        }
+                    }
+                    if (englishVoices.length > 0) {
+                        voices = englishVoices;
+                    }
+                }
+            }
+        } catch (e) {
+            console.warn('Error populating voice list:', e);
+        }
+    }
+    
+    // Try to populate voice list
+    if (synth) {
+        populateVoiceList();
+        if (synth.onvoiceschanged !== undefined) {
+            synth.onvoiceschanged = populateVoiceList;
+        }
+    }
+    
+    // Function to add message to chat
+    function addMessage(text, isInterviewer) {
+        if (!chatContainer) return;
+        
+        var messageDiv = document.createElement('div');
+        messageDiv.className = isInterviewer ? 'interviewer-message' : 'candidate-message';
+        messageDiv.textContent = text;
+        chatContainer.appendChild(messageDiv);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+    
+    // Function to add typing indicator
+    function showTypingIndicator() {
+        if (!chatContainer) return;
+        
+        var indicatorDiv = document.createElement('div');
+        indicatorDiv.className = 'typing-indicator';
+        indicatorDiv.id = 'typingIndicator';
+        
+        var dot1 = document.createElement('span');
+        dot1.className = 'dot';
+        var dot2 = document.createElement('span');
+        dot2.className = 'dot';
+        var dot3 = document.createElement('span');
+        dot3.className = 'dot';
+        
+        indicatorDiv.appendChild(dot1);
+        indicatorDiv.appendChild(dot2);
+        indicatorDiv.appendChild(dot3);
+        
+        chatContainer.appendChild(indicatorDiv);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+    
+    // Function to remove typing indicator
+    function hideTypingIndicator() {
+        var indicator = document.getElementById('typingIndicator');
+        if (indicator && indicator.parentNode) {
+            indicator.parentNode.removeChild(indicator);
+        }
+    }
+    
+    // Function to speak text using speech synthesis
+    function speakText(text) {
+        try {
+            if (!synth || !text) return;
+            
+            // Cancel any ongoing speech
+            if (synth.speaking) {
+                synth.cancel();
+            }
+            
+            var utterance = new SpeechSynthesisUtterance(text);
+            
+            // Set voice if available
+            if (voices && voices.length > 0) {
+                utterance.voice = voices[0];
+            }
+            
+            utterance.pitch = 1;
+            utterance.rate = 1;
+            synth.speak(utterance);
+        } catch (e) {
+            console.warn('Error with speech synthesis:', e);
+        }
+    }
+    
+    // Function to format time as mm:ss
+    function formatTime(seconds) {
+        var minutes = Math.floor(seconds / 60);
+        var secs = seconds % 60;
+        if (secs < 10) {
+            secs = '0' + secs;
+        }
+        return minutes + ':' + secs;
+    }
+    
+    // Function to update timer display
+    function updateTimer() {
+        if (remainingSeconds <= 0) {
+            clearInterval(timerInterval);
+            
+            if (timeRemaining) {
+                timeRemaining.innerHTML = "Time's up!";
+                timeRemaining.className = 'badge bg-danger me-2';
+            }
+            
+            // Disable response input
+            if (responseInput) {
+                responseInput.disabled = true;
+            }
+            
+            if (sendButton) {
+                sendButton.disabled = true;
+            }
+            
+            // Show time exceeded modal
+            if (timeExceededModal) {
+                try {
+                    timeExceededModal.show();
+                } catch (e) {
+                    console.error('Error showing modal:', e);
+                }
+            }
+            
+            return;
+        }
+        
+        remainingSeconds--;
+        
+        // Update display
+        if (timeRemaining) {
+            timeRemaining.innerHTML = 'Time remaining: ' + formatTime(remainingSeconds);
+            
+            // Change color when time is running low
+            if (remainingSeconds < 60) {
+                timeRemaining.className = 'badge bg-danger me-2';
+            } else if (remainingSeconds < 180) {
+                timeRemaining.className = 'badge bg-warning me-2';
+            }
+        }
+    }
+    
+    // Function to start timer
+    function startTimer(seconds) {
+        if (!hasTimeLimit || !timeRemaining) return;
+        
+        remainingSeconds = seconds;
+        if (timeRemaining) {
+            timeRemaining.innerHTML = 'Time remaining: ' + formatTime(remainingSeconds);
+        }
+        
+        clearInterval(timerInterval);
+        timerInterval = setInterval(updateTimer, 1000);
+    }
+    
+    // Function to start interview
+    function startInterviewHandler() {
+        if (startPrompt) {
+            startPrompt.classList.add('d-none');
+        }
+        
+        if (statusBadge) {
+            statusBadge.textContent = 'In Progress';
+            statusBadge.className = 'badge bg-success';
+        }
+        
+        showTypingIndicator();
+        
+        // Use fetch API to start interview
+        fetch('/api/start-interview', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ interview_id: interviewId })
+        })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            hideTypingIndicator();
+            
+            if (data.status === 'success') {
+                addMessage(data.question, true);
+                speakText(data.question);
+                
+                if (responseForm) {
+                    responseForm.classList.remove('d-none');
+                }
+                
+                if (responseInput) {
+                    responseInput.focus();
+                }
+                
+                // Start timer if applicable
+                if (data.has_time_limit && data.remaining_seconds) {
+                    hasTimeLimit = true;
+                    startTimer(data.remaining_seconds);
+                }
+            } else {
+                addMessage('Error starting interview: ' + data.message, true);
+            }
+        })
+        .catch(function(error) {
+            hideTypingIndicator();
+            console.error('Error:', error);
+            addMessage('An error occurred while starting the interview. Please try again.', true);
+        });
+    }
+    
+    // Function to send response
+    function sendResponseHandler() {
+        if (!responseInput) return;
+        
+        var response = responseInput.value ? responseInput.value.trim() : '';
+        
+        if (!response) {
+            return;
+        }
+        
+        // Disable input and show spinner
+        if (responseInput) {
+            responseInput.disabled = true;
+        }
+        
+        if (sendButton) {
+            sendButton.disabled = true;
+        }
+        
+        if (sendSpinner) {
+            sendSpinner.classList.remove('d-none');
+        }
+        
+        // Add candidate response to chat
+        addMessage(response, false);
+        
+        // Show typing indicator
+        showTypingIndicator();
+        
+        // Use fetch API to process response
+        fetch('/api/process-response', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                interview_id: interviewId,
+                response: response
+            })
+        })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            hideTypingIndicator();
+            
+            if (data.status === 'success') {
+                addMessage(data.question, true);
+                speakText(data.question);
+                
+                // Update timer if applicable
+                if (hasTimeLimit && data.remaining_seconds !== null) {
+                    remainingSeconds = data.remaining_seconds;
+                }
+                
+                if (data.is_complete || data.time_limit_exceeded) {
+                    // Interview complete
+                    if (responseForm) {
+                        responseForm.classList.add('d-none');
+                    }
+                    
+                    if (completeMessage) {
+                        completeMessage.classList.remove('d-none');
+                    }
+                    
+                    if (statusBadge) {
+                        statusBadge.textContent = 'Complete';
+                        statusBadge.className = 'badge bg-info';
+                    }
+                    
+                    // Stop the timer
+                    clearInterval(timerInterval);
+                    
+                    if (data.time_limit_exceeded && timeExceededModal) {
+                        try {
+                            timeExceededModal.show();
+                        } catch (e) {
+                            console.error('Error showing modal:', e);
+                        }
+                    }
+                } else {
+                    // Continue interview
+                    if (responseInput) {
+                        responseInput.value = '';
+                        responseInput.disabled = false;
+                        responseInput.focus();
+                    }
+                }
+            } else {
+                addMessage('Error processing response: ' + data.message, true);
+            }
+            
+            if (sendButton) {
+                sendButton.disabled = false;
+            }
+            
+            if (sendSpinner) {
+                sendSpinner.classList.add('d-none');
+            }
+        })
+        .catch(function(error) {
+            hideTypingIndicator();
+            console.error('Error:', error);
+            addMessage('An error occurred while processing your response. Please try again.', true);
+            
+            if (responseInput) {
+                responseInput.disabled = false;
+            }
+            
+            if (sendButton) {
+                sendButton.disabled = false;
+            }
+            
+            if (sendSpinner) {
+                sendSpinner.classList.add('d-none');
+            }
+        });
+    }
+    
+    // Function for handling Enter key in text area
+    function handleKeyDown(event) {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault();
+            if (sendButton) {
+                sendResponseHandler();
+            }
+        }
+    }
+    
+    // Add event listeners
+    if (startButton) {
+        startButton.onclick = startInterviewHandler;
+    }
+    
+    if (sendButton) {
+        sendButton.onclick = sendResponseHandler;
+    }
+    
+    if (responseInput) {
+        responseInput.onkeydown = handleKeyDown;
+    }
+});

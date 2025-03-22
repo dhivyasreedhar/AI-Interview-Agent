@@ -1,0 +1,268 @@
+{% extends "base.html" %}
+
+{% block title %}Interview Report: {{ candidate_name }}{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <h1>Interview Report</h1>
+        <p class="lead">
+            Candidate: {{ candidate_name }} | 
+            Position: {{ job_title }} |
+            Date: {{ summary.interview_date }}
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Overall Assessment</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="me-4">
+                        <div class="position-relative" style="width: 120px; height: 120px;">
+                            <div class="position-absolute top-50 start-50 translate-middle text-center">
+                                <h2 class="mb-0">{{ summary.overall_score }}</h2>
+                                <span class="small text-muted">/ 100</span>
+                            </div>
+                            <svg width="120" height="120">
+                                <circle cx="60" cy="60" r="54" fill="none" stroke="#e9ecef" stroke-width="12" />
+                                <circle cx="60" cy="60" r="54" fill="none" 
+                                        stroke="{{ 'green' if summary.overall_score >= 70 else 'orange' if summary.overall_score >= 60 else 'red' }}" 
+                                        stroke-width="12" 
+                                        stroke-dasharray="339.292" 
+                                        data-dashoffset="{{ summary.overall_score|default(0) }}"
+                                        class="score-circle"
+                                        transform="rotate(-90 60 60)" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div>
+                        <h3>{{ summary.recommendation }}</h3>
+                        <p class="mb-0">
+                            <span class="badge bg-{{ 'success' if summary.recommendation == 'Strong Hire' else 'primary' if summary.recommendation == 'Hire' else 'warning' if summary.recommendation == 'Consider with Reservations' else 'danger' }}">
+                                {{ summary.recommendation }}
+                            </span>
+                            
+                            <span class="ms-2 badge bg-info">
+                                Skill Match: {{ summary.skill_match_percentage|round(1) }}%
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Strengths</h5>
+                        {% if summary.strengths %}
+                            <ul class="list-group">
+                                {% for strength in summary.strengths %}
+                                    <li class="list-group-item">{{ strength }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p class="text-muted">No specific strengths identified.</p>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Areas for Improvement</h5>
+                        {% if summary.areas_for_improvement %}
+                            <ul class="list-group">
+                                {% for area in summary.areas_for_improvement %}
+                                    <li class="list-group-item">{{ area }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p class="text-muted">No specific areas for improvement identified.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Detailed Scores</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        {% set tech_score = summary.technical_score|default(0) %}
+                        <div class="score-box {{ 'high-score' if tech_score >= 75 else 'medium-score' if tech_score >= 50 else 'low-score' }}">
+                            <h5>Technical Expertise</h5>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span>{{ tech_score }}/100</span>
+                                <div class="progress" style="height: 10px; width: 70%;">
+                                    <div class="progress-bar" role="progressbar"
+                                         data-score="{{ tech_score }}"
+                                         aria-valuenow="{{ tech_score }}" 
+                                         aria-valuemin="0" 
+                                         aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        {% set exp_score = summary.experience_relevance_score|default(0) %}
+                        <div class="score-box {{ 'high-score' if exp_score >= 75 else 'medium-score' if exp_score >= 50 else 'low-score' }}">
+                            <h5>Relevant Experience</h5>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span>{{ exp_score }}/100</span>
+                                <div class="progress" style="height: 10px; width: 70%;">
+                                    <div class="progress-bar" role="progressbar"
+                                         data-score="{{ exp_score }}"
+                                         aria-valuenow="{{ exp_score }}" 
+                                         aria-valuemin="0" 
+                                         aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        {% set skill_score = summary.skill_match_score|default(0) %}
+                        <div class="score-box {{ 'high-score' if skill_score >= 75 else 'medium-score' if skill_score >= 50 else 'low-score' }}">
+                            <h5>Skill Match</h5>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span>{{ skill_score }}/100</span>
+                                <div class="progress" style="height: 10px; width: 70%;">
+                                    <div class="progress-bar" role="progressbar"
+                                         data-score="{{ skill_score }}"
+                                         aria-valuenow="{{ skill_score }}" 
+                                         aria-valuemin="0" 
+                                         aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        {% set culture_score = summary.cultural_fit_score|default(0) %}
+                        <div class="score-box {{ 'high-score' if culture_score >= 75 else 'medium-score' if culture_score >= 50 else 'low-score' }}">
+                            <h5>Cultural Fit</h5>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span>{{ culture_score }}/100</span>
+                                <div class="progress" style="height: 10px; width: 70%;">
+                                    <div class="progress-bar" role="progressbar"
+                                         data-score="{{ culture_score }}"
+                                         aria-valuenow="{{ culture_score }}" 
+                                         aria-valuemin="0" 
+                                         aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        {% set comm_score = summary.communication_score|default(0) %}
+                        <div class="score-box {{ 'high-score' if comm_score >= 75 else 'medium-score' if comm_score >= 50 else 'low-score' }}">
+                            <h5>Communication</h5>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span>{{ comm_score }}/100</span>
+                                <div class="progress" style="height: 10px; width: 70%;">
+                                    <div class="progress-bar" role="progressbar"
+                                         data-score="{{ comm_score }}"
+                                         aria-valuenow="{{ comm_score }}" 
+                                         aria-valuemin="0" 
+                                         aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Interview Notes</h5>
+            </div>
+            <div class="card-body">
+                {% if summary.notes %}
+                    <ul class="list-group">
+                        {% for note in summary.notes %}
+                            <li class="list-group-item">{{ note }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="text-muted">No notes recorded during the interview.</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary" id="printReportBtn">Print Report</button>
+                    <a href="/interview/{{ interview_id }}" class="btn btn-outline-secondary">Back to Interview</a>
+                    <a href="/" class="btn btn-outline-primary">New Interview</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Interview Transcript</h5>
+                <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#transcriptCollapse">
+                    Toggle Transcript
+                </button>
+            </div>
+            <div class="collapse" id="transcriptCollapse">
+                <div class="card-body">
+                    {% for message in summary.conversation_transcript %}
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between">
+                                <strong>{{ message.speaker|title }}</strong>
+                                <small class="text-muted">{{ message.timestamp|timestamp_to_datetime }}</small>
+                            </div>
+                            <p class="mb-0">{{ message.text }}</p>
+                        </div>
+                        {% if not loop.last %}
+                            <hr>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Set progress bar widths from data attributes
+    document.querySelectorAll('.progress-bar[data-score]').forEach(function(bar) {
+        var score = parseFloat(bar.getAttribute('data-score')) || 0;
+        bar.style.width = score + '%';
+    });
+    
+    // Set circle stroke-dashoffset for the score circle
+    document.querySelectorAll('.score-circle[data-dashoffset]').forEach(function(circle) {
+        var score = parseFloat(circle.getAttribute('data-dashoffset')) || 0;
+        var offset = 339.292 - (339.292 * score / 100);
+        circle.setAttribute('stroke-dashoffset', offset);
+    });
+    
+    // Print report
+    document.getElementById('printReportBtn').addEventListener('click', function() {
+        window.print();
+    });
+});
+</script>
+{% endblock %}

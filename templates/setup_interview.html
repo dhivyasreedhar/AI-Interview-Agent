@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+
+{% block title %}Setup New Interview{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <h1>Setup New Interview</h1>
+        <p class="lead">Provide the necessary information to create a personalized interview.</p>
+    </div>
+</div>
+
+<form id="setupForm">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Job Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="jobPosting" class="form-label">Job Description</label>
+                        <textarea class="form-control" id="jobPosting" name="job_posting" rows="8" required></textarea>
+                        <div class="form-text">Include job title, responsibilities, requirements, and qualifications.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Company Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="companyProfile" class="form-label">Company Profile</label>
+                        <textarea class="form-control" id="companyProfile" name="company_profile" rows="6" required></textarea>
+                        <div class="form-text">Include company mission, vision, and core values.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Candidate Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="resume" class="form-label">Candidate Resume</label>
+                        <textarea class="form-control" id="resume" name="resume" rows="8" required></textarea>
+                        <div class="form-text">Paste the candidate's resume text.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Interview Settings</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="interviewDuration" class="form-label">Interview Duration (minutes)</label>
+                        <input type="number" class="form-control" id="interviewDuration" name="interview_duration" min="0" value="30">
+                        <div class="form-text">Set to 0 for no time limit.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between">
+        <a href="/" class="btn btn-outline-secondary">Cancel</a>
+        <button type="submit" class="btn btn-primary" id="setupButton">
+            <span class="spinner-border spinner-border-sm d-none" id="setupSpinner" role="status" aria-hidden="true"></span>
+            Create Interview
+        </button>
+    </div>
+</form>
+
+<div class="modal fade" id="processingModal" tabindex="-1" aria-labelledby="processingModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="processingModalLabel">Processing</h5>
+            </div>
+            <div class="modal-body text-center">
+                <div class="spinner-border text-primary mb-3" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p>Creating your personalized interview...</p>
+                <p>This may take a few moments.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const setupForm = document.getElementById('setupForm');
+    const setupButton = document.getElementById('setupButton');
+    const setupSpinner = document.getElementById('setupSpinner');
+    const processingModal = new bootstrap.Modal(document.getElementById('processingModal'));
+    
+    // Sample data for quick testing
+    document.getElementById('jobPosting').value = `Job Title: Senior Python Developer
+    
+About the Role:
+We are seeking an experienced Python Developer to join our dynamic team. The ideal candidate will have a strong foundation in Python programming and experience with web frameworks.
+
+Responsibilities:
+• Design and implement high-quality, scalable Python applications
+• Collaborate with cross-functional teams to define, design, and ship new features
+• Optimize applications for maximum speed and scalability
+• Write clean, maintainable, and efficient code
+
+Requirements:
+• 5+ years of experience with Python development
+• Strong understanding of web frameworks such as Django or Flask
+• Experience with database design and ORM libraries
+• Knowledge of front-end technologies (HTML, CSS, JavaScript)
+• Bachelor's degree in Computer Science or related field
+• Excellent problem-solving skills and attention to detail`;
+
+    document.getElementById('companyProfile').value = `Company: TechInnovate Solutions
+
+Mission: To create innovative software solutions that empower businesses to achieve their full potential.
+
+Vision: To be the leading provider of custom software solutions, recognized for our technical excellence and client-focused approach.
+
+Core Values:
+• Excellence in everything we do
+• Innovation and continuous learning
+• Collaboration and teamwork
+• Client-centered focus
+• Integrity and transparency`;
+
+    document.getElementById('resume').value = `John Smith
+john.smith@example.com
+(555) 123-4567
+
+SUMMARY
+Experienced Python Developer with 7 years of expertise in building web applications using Django and Flask. Skilled in database design, API development, and cloud infrastructure.
+
+SKILLS
+• Python, Django, Flask, FastAPI
+• JavaScript, React, HTML, CSS
+• PostgreSQL, MongoDB, Redis
+• AWS, Docker, Kubernetes
+• Git, CI/CD pipelines
+
+WORK EXPERIENCE
+
+Senior Python Developer
+DataTech Solutions, Jan 2020 - Present
+• Developed and maintained multiple Django applications serving 10,000+ daily active users
+• Redesigned API architecture, improving response times by 40%
+• Implemented automated testing procedures, increasing code coverage from 65% to 90%
+• Mentored junior developers and conducted code reviews
+
+Python Developer
+WebFront Systems, June 2017 - Dec 2019
+• Built RESTful APIs using Flask for mobile and web applications
+• Integrated third-party services including payment gateways and analytics tools
+• Optimized database queries, reducing load times by 30%
+
+EDUCATION
+Bachelor of Science in Computer Science
+University of Technology, 2017`;
+    
+    setupForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        // Disable button and show spinner
+        setupButton.disabled = true;
+        setupSpinner.classList.remove('d-none');
+        
+        // Show processing modal
+        processingModal.show();
+        
+        // Get form data
+        const formData = new FormData(setupForm);
+        
+        // Send data to server
+        fetch('/setup-interview', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                window.location.href = data.redirect;
+            } else {
+                alert('Error: ' + data.message);
+                setupButton.disabled = false;
+                setupSpinner.classList.add('d-none');
+                processingModal.hide();
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+            setupButton.disabled = false;
+            setupSpinner.classList.add('d-none');
+            processingModal.hide();
+        });
+    });
+});
+</script>
+{% endblock %}

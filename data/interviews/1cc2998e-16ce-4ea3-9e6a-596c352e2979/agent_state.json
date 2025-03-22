@@ -1,0 +1,131 @@
+{
+  "job_info": {
+    "title": "Senior Python Developer",
+    "skills": [
+      "and attention to detail"
+    ],
+    "experience_years": 5,
+    "education": [],
+    "responsibilities": [
+      "Design and implement high-quality, scalable Python applications",
+      "Collaborate with cross-functional teams to define, design, and ship new features",
+      "Optimize applications for maximum speed and scalability",
+      "Write clean, maintainable, and efficient code"
+    ],
+    "raw_text": "Job Title: Senior Python Developer\r\n    \r\nAbout the Role:\r\nWe are seeking an experienced Python Developer to join our dynamic team. The ideal candidate will have a strong foundation in Python programming and experience with web frameworks.\r\n\r\nResponsibilities:\r\n\u2022 Design and implement high-quality, scalable Python applications\r\n\u2022 Collaborate with cross-functional teams to define, design, and ship new features\r\n\u2022 Optimize applications for maximum speed and scalability\r\n\u2022 Write clean, maintainable, and efficient code\r\n\r\nRequirements:\r\n\u2022 5+ years of experience with Python development\r\n\u2022 Strong understanding of web frameworks such as Django or Flask\r\n\u2022 Experience with database design and ORM libraries\r\n\u2022 Knowledge of front-end technologies (HTML, CSS, JavaScript)\r\n\u2022 Bachelor's degree in Computer Science or related field\r\n\u2022 Excellent problem-solving skills and attention to detail"
+  },
+  "company_info": {
+    "mission": "To create innovative software solutions that empower businesses to achieve their full potential.",
+    "vision": "To be the leading provider of custom software solutions, recognized for our technical excellence and client-focused approach.",
+    "core_values": [
+      "Excellence in everything we do",
+      "Innovation and continuous learning",
+      "Collaboration and teamwork",
+      "Client-centered focus",
+      "Integrity and transparency"
+    ],
+    "raw_text": "Company: TechInnovate Solutions\r\n\r\nMission: To create innovative software solutions that empower businesses to achieve their full potential.\r\n\r\nVision: To be the leading provider of custom software solutions, recognized for our technical excellence and client-focused approach.\r\n\r\nCore Values:\r\n\u2022 Excellence in everything we do\r\n\u2022 Innovation and continuous learning\r\n\u2022 Collaboration and teamwork\r\n\u2022 Client-centered focus\r\n\u2022 Integrity and transparency"
+  },
+  "candidate_info": {
+    "name": "John Smith",
+    "email": "john.smith@example.com",
+    "skills": [
+      "Python",
+      "Django",
+      "Flask",
+      "FastAPI",
+      "JavaScript",
+      "React",
+      "HTML",
+      "CSS",
+      "PostgreSQL",
+      "MongoDB",
+      "Redis",
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Git",
+      "CI/CD pipelines"
+    ],
+    "work_experience": [
+      {
+        "company": "d Python Developer with 7 years of expertise in building web applications using Django and Flask. Skilled in database design",
+        "title": "Developer",
+        "dates": "",
+        "duration_years": 7
+      }
+    ],
+    "education": [
+      {
+        "degree": "Bachelor of Science in Computer Science",
+        "year": ""
+      }
+    ],
+    "raw_text": "John Smith\r\njohn.smith@example.com\r\n(555) 123-4567\r\n\r\nSUMMARY\r\nExperienced Python Developer with 7 years of expertise in building web applications using Django and Flask. Skilled in database design, API development, and cloud infrastructure.\r\n\r\nSKILLS\r\n\u2022 Python, Django, Flask, FastAPI\r\n\u2022 JavaScript, React, HTML, CSS\r\n\u2022 PostgreSQL, MongoDB, Redis\r\n\u2022 AWS, Docker, Kubernetes\r\n\u2022 Git, CI/CD pipelines\r\n\r\nWORK EXPERIENCE\r\n\r\nSenior Python Developer\r\nDataTech Solutions, Jan 2020 - Present\r\n\u2022 Developed and maintained multiple Django applications serving 10,000+ daily active users\r\n\u2022 Redesigned API architecture, improving response times by 40%\r\n\u2022 Implemented automated testing procedures, increasing code coverage from 65% to 90%\r\n\u2022 Mentored junior developers and conducted code reviews\r\n\r\nPython Developer\r\nWebFront Systems, June 2017 - Dec 2019\r\n\u2022 Built RESTful APIs using Flask for mobile and web applications\r\n\u2022 Integrated third-party services including payment gateways and analytics tools\r\n\u2022 Optimized database queries, reducing load times by 30%\r\n\r\nEDUCATION\r\nBachelor of Science in Computer Science\r\nUniversity of Technology, 2017"
+  },
+  "match_analysis": {
+    "skill_match_percentage": 0.0,
+    "common_skills": [],
+    "missing_skills": [
+      "and attention to detail"
+    ],
+    "experience_match": true,
+    "education_match": false
+  },
+  "script": [
+    {
+      "type": "introduction",
+      "question": "Hi John Smith, thank you for your interest in the Senior Python Developer role. Let's start by having you tell me about your background and what excites you about this position."
+    },
+    {
+      "type": "technical",
+      "question": "Could you walk me through your approach to debugging a complex issue in a large codebase?"
+    },
+    {
+      "type": "experience",
+      "question": "I see you've worked at d Python Developer with 7 years of expertise in building web applications using Django and Flask. Skilled in database design as a Developer. Could you tell me about your main responsibilities there and how they relate to our Senior Python Developer position?"
+    },
+    {
+      "type": "technical",
+      "question": "How do you ensure the code you write is maintainable and can be understood by other team members?"
+    },
+    {
+      "type": "missing_skill",
+      "question": "Our Senior Python Developer role requires experience with and attention to detail, which I don't see explicitly mentioned on your resume. Do you have any experience with this that you'd like to share?"
+    },
+    {
+      "type": "behavioral",
+      "question": "Tell me about a project that didn't go as planned. What went wrong, and what did you learn from the experience?"
+    },
+    {
+      "type": "company_culture",
+      "question": "Our company mission is centered around empower. How does this align with your personal or professional values?"
+    },
+    {
+      "type": "behavioral",
+      "question": "Describe a situation where you received constructive criticism. How did you respond to it?"
+    },
+    {
+      "type": "behavioral",
+      "question": "Can you share an example of a time when you had to think creatively to solve a problem?"
+    },
+    {
+      "type": "situational",
+      "question": "Suppose you identify a process that could be significantly improved. How would you go about implementing that change?"
+    },
+    {
+      "type": "situational",
+      "question": "How would you handle a situation where you disagree with a team decision but are outvoted?"
+    },
+    {
+      "type": "company_culture",
+      "question": "One of our core values is Client-centered focus. Can you share an example from your past experience that demonstrates how you embody this value?"
+    },
+    {
+      "type": "closing",
+      "question": "Is there anything else you'd like to share that we haven't covered that you think would be relevant for the Senior Python Developer position?"
+    }
+  ],
+  "interview_duration": 5,
+  "created_at": "2025-03-22T16:35:23.894315"
+}

@@ -1,0 +1,11 @@
+{
+  "history": [
+    {
+      "speaker": "interviewer",
+      "text": "Hello John Smith, thanks for joining us today to discuss the Senior Python Developer position at our company. Could you start by telling me a bit about yourself and why you're interested in this role?",
+      "timestamp": 1742672376.041315
+    }
+  ],
+  "current_index": 0,
+  "complete": false
+}
