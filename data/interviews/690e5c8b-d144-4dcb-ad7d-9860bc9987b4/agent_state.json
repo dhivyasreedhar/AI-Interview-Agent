@@ -1,0 +1,199 @@
+{
+  "job_info": {
+    "title": "Senior Python Developer",
+    "company_name": null,
+    "skills": [
+      "Python programming",
+      "Web frameworks (Django, Flask)",
+      "Database design",
+      "ORM libraries",
+      "Front-end technologies (HTML, CSS, JavaScript)"
+    ],
+    "responsibilities": [
+      "Design and implement high-quality, scalable Python applications",
+      "Collaborate with cross-functional teams to define, design, and ship new features",
+      "Optimize applications for maximum speed and scalability",
+      "Write clean, maintainable, and efficient code"
+    ],
+    "qualifications": [
+      "Bachelor's degree in Computer Science or related field",
+      "5+ years of experience with Python development"
+    ],
+    "experience_level": "5+ years",
+    "education": "Bachelor's degree in Computer Science or related field",
+    "location": null,
+    "remote_status": null
+  },
+  "company_info": {
+    "name": "TechInnovate Solutions",
+    "mission": "To create innovative software solutions that empower businesses to achieve their full potential.",
+    "vision": "To be the leading provider of custom software solutions, recognized for our technical excellence and client-focused approach.",
+    "core_values": [
+      "Excellence in everything we do",
+      "Innovation and continuous learning",
+      "Collaboration and teamwork",
+      "Client-centered focus",
+      "Integrity and transparency"
+    ],
+    "culture": null,
+    "industry": null,
+    "products": "TechInnovate Solutions provides custom software solutions to empower businesses.",
+    "size": null,
+    "founding_year": null
+  },
+  "candidate_info": {
+    "name": "John R",
+    "email": "john.smith@example.com",
+    "phone": "(555) 123-4567",
+    "skills": [
+      "Python",
+      "Django",
+      "Flask",
+      "FastAPI",
+      "JavaScript",
+      "React",
+      "HTML",
+      "CSS",
+      "PostgreSQL",
+      "MongoDB",
+      "Redis",
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Git",
+      "CI/CD pipelines"
+    ],
+    "work_experience": [
+      {
+        "company": "DataTech Solutions",
+        "title": "Senior Python Developer",
+        "start_date": "Jan 2020",
+        "end_date": "Present",
+        "description": [
+          "Developed and maintained multiple Django applications serving 10,000+ daily active users",
+          "Redesigned API architecture, improving response times by 40%",
+          "Implemented automated testing procedures, increasing code coverage from 65% to 90%",
+          "Mentored junior developers and conducted code reviews"
+        ]
+      },
+      {
+        "company": "WebFront Systems",
+        "title": "Python Developer",
+        "start_date": "June 2017",
+        "end_date": "Dec 2019",
+        "description": [
+          "Built RESTful APIs using Flask for mobile and web applications",
+          "Integrated third-party services including payment gateways and analytics tools",
+          "Optimized database queries, reducing load times by 30%"
+        ]
+      }
+    ],
+    "education": [
+      {
+        "institution": "University of Technology",
+        "degree": "Bachelor of Science",
+        "field": "Computer Science",
+        "graduation_date": "2017"
+      }
+    ],
+    "certifications": [],
+    "years_of_experience": 7
+  },
+  "match_analysis": {
+    "skill_match_percentage": 71,
+    "common_skills": [
+      "Python",
+      "Django",
+      "Flask",
+      "JavaScript",
+      "HTML",
+      "CSS"
+    ],
+    "missing_skills": [
+      "Database design",
+      "ORM libraries"
+    ],
+    "experience_relevance": 85,
+    "key_strengths": [
+      "Python programming",
+      "Web frameworks (Django, Flask)",
+      "API development",
+      "Database management",
+      "Cloud infrastructure"
+    ],
+    "areas_for_improvement": [
+      "Database design",
+      "ORM libraries",
+      "Front-end technologies (JavaScript, HTML, CSS)"
+    ],
+    "overall_fit": 78
+  },
+  "script": [
+    {
+      "type": "introduction",
+      "question": "Hello John R, thanks for joining us today to discuss the Senior Python Developer position at our company. Could you start by telling me a bit about yourself and why you're interested in this role?"
+    },
+    {
+      "type": "experience",
+      "question": "Can you elaborate on your time at WebFront Systems? What specific skills or lessons did you develop there that you believe would be valuable for our Senior Python Developer role?"
+    },
+    {
+      "type": "technical",
+      "question": "What's your experience with code reviews, both giving and receiving feedback?"
+    },
+    {
+      "type": "behavioral",
+      "question": "Describe a situation where you received constructive criticism. How did you respond to it?"
+    },
+    {
+      "type": "experience",
+      "question": "Your experience at DataTech Solutions looks interesting. What were some of the key challenges you faced in your role as Senior Python Developer, and how did you overcome them?"
+    },
+    {
+      "type": "technical",
+      "question": "How do you ensure the code you write is maintainable and can be understood by other team members?"
+    },
+    {
+      "type": "behavioral",
+      "question": "Describe a situation where you had to meet a tight deadline. How did you prioritize your tasks and manage your time?"
+    },
+    {
+      "type": "company_culture",
+      "question": "Our company mission is centered around businesses. How does this align with your personal or professional values?"
+    },
+    {
+      "type": "behavioral",
+      "question": "Tell me about a project that didn't go as planned. What went wrong, and what did you learn from the experience?"
+    },
+    {
+      "type": "missing_skill",
+      "question": "Our Senior Python Developer role requires experience with Database design, which I don't see explicitly mentioned on your resume. Do you have any experience with this that you'd like to share?"
+    },
+    {
+      "type": "skill",
+      "question": "How would you rate your proficiency in Python on a scale of 1-10, and why? Can you give an example of how you've used it in your work?"
+    },
+    {
+      "type": "situational",
+      "question": "Imagine you're assigned a project with unclear requirements. How would you proceed to clarify what needs to be done?"
+    },
+    {
+      "type": "company_culture",
+      "question": "One of our core values is Innovation and continuous learning. Can you share an example from your past experience that demonstrates how you embody this value?"
+    },
+    {
+      "type": "situational",
+      "question": "How would you handle a situation where you disagree with a team decision but are outvoted?"
+    },
+    {
+      "type": "skill",
+      "question": "You mentioned Flask as one of your skills. How have you kept this skill up-to-date with the latest developments in the field?"
+    },
+    {
+      "type": "closing",
+      "question": "Do you have any questions for me about the Senior Python Developer role or about working at our company?"
+    }
+  ],
+  "interview_duration": 3,
+  "created_at": "2025-03-28T23:27:50.745085"
+}

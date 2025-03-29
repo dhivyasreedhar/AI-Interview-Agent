@@ -1,0 +1,13 @@
+{
+  "history": [
+    {
+      "speaker": "interviewer",
+      "text": "John Smith, it's great to have you here today to talk about the Senior Python Developer opportunity with us. Can you share more about your background and what attracts you to this role, particularly in light of your experience with building scalable web applications and optimizing code efficiency?",
+      "timestamp": 1743205119.3964522,
+      "question_type": "introduction"
+    }
+  ],
+  "current_index": 0,
+  "complete": false,
+  "interview_start_time": 1743205118.557628
+}

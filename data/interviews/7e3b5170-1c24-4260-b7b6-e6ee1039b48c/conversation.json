@@ -1,0 +1,13 @@
+{
+  "history": [
+    {
+      "speaker": "interviewer",
+      "text": "John Smith, could you please share about your background and what attracts you to the Senior Python Developer role at our company, considering your experience with developing scalable web applications and expertise in building RESTful APIs, as outlined in the job description?",
+      "timestamp": 1743031115.117167,
+      "question_type": "introduction"
+    }
+  ],
+  "current_index": 0,
+  "complete": false,
+  "interview_start_time": 1743031114.287524
+}

@@ -1,0 +1,13 @@
+{
+  "history": [
+    {
+      "speaker": "interviewer",
+      "text": "Could you share with us a bit about your background and what interests you about the Senior Python Developer role at our company, John Smith?",
+      "timestamp": 1743029798.9278688,
+      "question_type": "introduction"
+    }
+  ],
+  "current_index": 0,
+  "complete": false,
+  "interview_start_time": 1743029798.237223
+}

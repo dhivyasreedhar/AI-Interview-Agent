@@ -1,0 +1,18 @@
+Job Title: Senior Python Developer
+    
+About the Role:
+We are seeking an experienced Python Developer to join our dynamic team. The ideal candidate will have a strong foundation in Python programming and experience with web frameworks.
+
+Responsibilities:
+• Design and implement high-quality, scalable Python applications
+• Collaborate with cross-functional teams to define, design, and ship new features
+• Optimize applications for maximum speed and scalability
+• Write clean, maintainable, and efficient code
+
+Requirements:
+• 5+ years of experience with Python development
+• Strong understanding of web frameworks such as Django or Flask
+• Experience with database design and ORM libraries
+• Knowledge of front-end technologies (HTML, CSS, JavaScript)
+• Bachelor's degree in Computer Science or related field
+• Excellent problem-solving skills and attention to detail

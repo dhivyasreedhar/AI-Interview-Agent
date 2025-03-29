@@ -1,0 +1,37 @@
+{
+  "history": [
+    {
+      "speaker": "interviewer",
+      "text": "Hello John Smith, thanks for joining us today to discuss the Senior Python Developer position at our company. Could you start by telling me a bit about yourself and why you're interested in this role?",
+      "timestamp": 1743023225.974432,
+      "question_type": "introduction"
+    },
+    {
+      "speaker": "candidate",
+      "text": "hi i have 2+ yoe",
+      "timestamp": 1743023235.258715,
+      "in_response_to": null
+    },
+    {
+      "speaker": "interviewer",
+      "text": "Could you walk me through your approach to debugging a complex issue in a large codebase?",
+      "timestamp": 1743023235.258796,
+      "question_type": "technical"
+    },
+    {
+      "speaker": "candidate",
+      "text": "sure,",
+      "timestamp": 1743023243.138474,
+      "in_response_to": null
+    },
+    {
+      "speaker": "interviewer",
+      "text": "How do you ensure the code you write is maintainable and can be understood by other team members?",
+      "timestamp": 1743023243.138498,
+      "question_type": "technical"
+    }
+  ],
+  "current_index": 2,
+  "complete": false,
+  "interview_start_time": 1743023225.973425
+}

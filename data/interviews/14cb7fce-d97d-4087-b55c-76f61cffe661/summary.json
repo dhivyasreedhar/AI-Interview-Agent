@@ -1,0 +1,30 @@
+{
+  "candidate_name": "John Smith",
+  "job_title": "Senior Python Developer",
+  "interview_date": "2025-03-28",
+  "overall_score": 0,
+  "technical_score": 0,
+  "cultural_fit_score": 0,
+  "communication_score": 0,
+  "experience_relevance_score": 0,
+  "skill_match_score": 0,
+  "strengths": [],
+  "areas_for_improvement": [
+    "technical expertise",
+    "alignment with company values",
+    "communication ability",
+    "experience directly related to this role",
+    "specific skills required for this position"
+  ],
+  "recommendation": "Reject",
+  "notes": [],
+  "skill_match_percentage": 0.0,
+  "conversation_transcript": [
+    {
+      "speaker": "interviewer",
+      "text": "John Smith, can you share with me your background and what aspects of the Senior Python Developer role excite you, especially in relation to the job responsibilities mentioned in the description?",
+      "timestamp": 1743208066.9081569,
+      "question_type": "introduction"
+    }
+  ]
+}

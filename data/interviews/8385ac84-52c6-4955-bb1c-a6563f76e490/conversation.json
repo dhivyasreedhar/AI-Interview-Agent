@@ -1,0 +1,13 @@
+{
+  "history": [
+    {
+      "speaker": "interviewer",
+      "text": "Can you share with us a bit about yourself and why you are excited about the Senior Python Developer role at our company, especially considering the emphasis on experience with building scalable web applications and leading a team in the job description?",
+      "timestamp": 1743028681.4958029,
+      "question_type": "introduction"
+    }
+  ],
+  "current_index": 0,
+  "complete": false,
+  "interview_start_time": 1743028680.574443
+}

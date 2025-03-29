@@ -1,8 +1,169 @@
+{% extends "base.html" %}
+
+{% block title %}AI Interview: {{ candidate_name }} - {{ job_title }}{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <h1>Interview Session</h1>
+        <p class="lead">
+            Candidate: {{ candidate_name }} | 
+            Position: {{ job_title }}
+            <span class="badge bg-primary ms-2" id="statusBadge">Ready</span>
+            {% if interview_duration %}
+            <span class="badge bg-secondary me-2" id="timeRemaining">
+                Time limit: {{ interview_duration|duration_format }}
+            </span>
+            {% endif %}
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Interview Conversation</h5>
+            </div>
+            <div class="card-body">
+                <!-- Chat container -->
+                <div class="chat-container" id="chatContainer">
+                    <!-- Messages will be added here -->
+                </div>
+                
+                <!-- Start prompt -->
+                <div class="text-center my-5" id="startPrompt">
+                    <p class="mb-4">Ready to begin the interview?</p>
+                    <button type="button" class="btn btn-primary" id="startButton">
+                        Start Interview
+                    </button>
+                </div>
+                
+                <!-- Response form -->
+                <div class="response-form d-none" id="responseForm">
+                    <div class="mb-3">
+                        <textarea class="form-control" id="responseInput" rows="3" 
+                                  placeholder="Type your response here..."></textarea>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary" id="sendButton">
+                            <span class="spinner-border spinner-border-sm d-none" id="sendSpinner" role="status" aria-hidden="true"></span>
+                            Send Response
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Complete message -->
+                <div class="text-center my-5 d-none" id="completeMessage">
+                    <div class="alert alert-success">
+                        <h4>Interview Complete</h4>
+                        <p>Thank you for completing this interview.</p>
+                        <a href="/report/{{ interview_id }}" class="btn btn-primary">View Interview Report</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Time Exceeded Modal -->
+<div class="modal fade" id="timeExceededModal" tabindex="-1" aria-labelledby="timeExceededModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="timeExceededModalLabel">Interview Time Limit Reached</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>The allocated time for this interview has been reached.</p>
+                <p>Your responses have been recorded and will be evaluated.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="/report/{{ interview_id }}" class="btn btn-primary">View Report</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .chat-container {
+        height: 400px;
+        overflow-y: auto;
+        border: 1px solid #e9ecef;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 20px;
+        background-color: #f8f9fa;
+    }
+    
+    .interviewer-message {
+        background-color: #007bff;
+        color: white;
+        border-radius: 15px 15px 15px 0;
+        padding: 10px 15px;
+        margin-bottom: 15px;
+        max-width: 80%;
+    }
+    
+    .candidate-message {
+        background-color: #6c757d;
+        color: white;
+        border-radius: 15px 15px 0 15px;
+        padding: 10px 15px;
+        margin-bottom: 15px;
+        margin-left: auto;
+        max-width: 80%;
+    }
+    
+    .typing-indicator {
+        background-color: #e9ecef;
+        border-radius: 15px;
+        padding: 10px 15px;
+        margin-bottom: 15px;
+        display: inline-block;
+        width: auto;
+    }
+    
+    .typing-indicator .dot {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: #777;
+        animation: wave 1.3s linear infinite;
+        margin-right: 3px;
+    }
+    
+    .typing-indicator .dot:nth-child(2) {
+        animation-delay: -1.1s;
+    }
+    
+    .typing-indicator .dot:nth-child(3) {
+        animation-delay: -0.9s;
+        margin-right: 0;
+    }
+    
+    @keyframes wave {
+        0%, 60%, 100% {
+            transform: initial;
+        }
+        30% {
+            transform: translateY(-5px);
+        }
+    }
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
 document.addEventListener('DOMContentLoaded', function() {
     // Basic variables
-    var interviewId = '{{ interview_id }}';
-    var interviewDuration = {{ interview_duration|default(0) }};
-    var hasTimeLimit = interviewDuration > 0;
+    var interviewId = "{{ interview_id }}";
+    var interviewDuration = "{{ interview_duration|default('0')|safe }}";
+    var hasTimeLimit = parseInt(interviewDuration, 10) > 0;
     
     // DOM elements
     var chatContainer = document.getElementById('chatContainer');
@@ -35,39 +196,31 @@ document.addEventListener('DOMContentLoaded', function() {
     var voices = [];
     try {
         synth = window.speechSynthesis;
-    } catch (e) {
-        console.warn('Speech synthesis not available:', e);
-    }
-    
-    // Function to populate voice list
-    function populateVoiceList() {
-        try {
-            if (synth) {
-                voices = synth.getVoices();
-                if (voices && voices.length > 0) {
+        if (synth) {
+            // Try to populate voices initially
+            voices = synth.getVoices();
+            
+            // Set up voice change event
+            if (synth.onvoiceschanged !== undefined) {
+                synth.onvoiceschanged = function() {
+                    voices = synth.getVoices();
                     // Filter for English voices
-                    var englishVoices = [];
-                    for (var i = 0; i < voices.length; i++) {
-                        if (voices[i].lang && voices[i].lang.indexOf('en') !== -1) {
-                            englishVoices.push(voices[i]);
+                    if (voices && voices.length > 0) {
+                        var englishVoices = [];
+                        for (var i = 0; i < voices.length; i++) {
+                            if (voices[i].lang && voices[i].lang.indexOf('en') !== -1) {
+                                englishVoices.push(voices[i]);
+                            }
+                        }
+                        if (englishVoices.length > 0) {
+                            voices = englishVoices;
                         }
                     }
-                    if (englishVoices.length > 0) {
-                        voices = englishVoices;
-                    }
-                }
+                };
             }
-        } catch (e) {
-            console.warn('Error populating voice list:', e);
         }
-    }
-    
-    // Try to populate voice list
-    if (synth) {
-        populateVoiceList();
-        if (synth.onvoiceschanged !== undefined) {
-            synth.onvoiceschanged = populateVoiceList;
-        }
+    } catch (e) {
+        console.warn('Speech synthesis not available:', e);
     }
     
     // Function to add message to chat
@@ -84,6 +237,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to add typing indicator
     function showTypingIndicator() {
         if (!chatContainer) return;
+        
+        // Check if indicator already exists
+        if (document.getElementById('typingIndicator')) {
+            return;
+        }
         
         var indicatorDiv = document.createElement('div');
         indicatorDiv.className = 'typing-indicator';
@@ -235,7 +393,15 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (data.status === 'success') {
                 addMessage(data.question, true);
-                speakText(data.question);
+                
+                // Try to speak the text if enabled and available
+                try {
+                    if (synth) {
+                        speakText(data.question);
+                    }
+                } catch (error) {
+                    console.error('Error with speech synthesis:', error);
+                }
                 
                 if (responseForm) {
                     responseForm.classList.remove('d-none');
@@ -251,7 +417,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     startTimer(data.remaining_seconds);
                 }
             } else {
-                addMessage('Error starting interview: ' + data.message, true);
+                addMessage('Error starting interview: ' + (data.message || 'Unknown error'), true);
             }
         })
         .catch(function(error) {
@@ -309,7 +475,15 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (data.status === 'success') {
                 addMessage(data.question, true);
-                speakText(data.question);
+                
+                // Try to speak the text if enabled and available
+                try {
+                    if (synth) {
+                        speakText(data.question);
+                    }
+                } catch (error) {
+                    console.error('Error with speech synthesis:', error);
+                }
                 
                 // Update timer if applicable
                 if (hasTimeLimit && data.remaining_seconds !== null) {
@@ -348,13 +522,22 @@ document.addEventListener('DOMContentLoaded', function() {
                         responseInput.disabled = false;
                         responseInput.focus();
                     }
+                    
+                    if (sendButton) {
+                        sendButton.disabled = false;
+                    }
                 }
             } else {
-                addMessage('Error processing response: ' + data.message, true);
-            }
-            
-            if (sendButton) {
-                sendButton.disabled = false;
+                addMessage('Error processing response: ' + (data.message || 'Unknown error'), true);
+                
+                // Re-enable input
+                if (responseInput) {
+                    responseInput.disabled = false;
+                }
+                
+                if (sendButton) {
+                    sendButton.disabled = false;
+                }
             }
             
             if (sendSpinner) {
@@ -384,7 +567,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function handleKeyDown(event) {
         if (event.key === 'Enter' && !event.shiftKey) {
             event.preventDefault();
-            if (sendButton) {
+            if (sendButton && !sendButton.disabled) {
                 sendResponseHandler();
             }
         }
@@ -392,14 +575,16 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Add event listeners
     if (startButton) {
-        startButton.onclick = startInterviewHandler;
+        startButton.addEventListener('click', startInterviewHandler);
     }
     
     if (sendButton) {
-        sendButton.onclick = sendResponseHandler;
+        sendButton.addEventListener('click', sendResponseHandler);
     }
     
     if (responseInput) {
-        responseInput.onkeydown = handleKeyDown;
+        responseInput.addEventListener('keydown', handleKeyDown);
     }
 });
+</script>
+{% endblock %}

@@ -1,0 +1,13 @@
+{
+  "history": [
+    {
+      "speaker": "interviewer",
+      "text": "Can you share a brief introduction about yourself, John Smith, and tell me what drew you to the Senior Python Developer position, particularly in relation to the specific requirements mentioned in the job description?",
+      "timestamp": 1743206818.694858,
+      "question_type": "introduction"
+    }
+  ],
+  "current_index": 0,
+  "complete": false,
+  "interview_start_time": 1743206816.454814
+}

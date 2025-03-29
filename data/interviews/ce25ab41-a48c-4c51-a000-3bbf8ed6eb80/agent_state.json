@@ -1,0 +1,127 @@
+{
+  "job_info": {
+    "title": "Senior Python Developer",
+    "skills": [
+      "and attention to detail"
+    ],
+    "experience_years": 5,
+    "education": [],
+    "responsibilities": [
+      "Design and implement high-quality, scalable Python applications",
+      "Collaborate with cross-functional teams to define, design, and ship new features",
+      "Optimize applications for maximum speed and scalability",
+      "Write clean, maintainable, and efficient code"
+    ],
+    "raw_text": "Job Title: Senior Python Developer\r\n    \r\nAbout the Role:\r\nWe are seeking an experienced Python Developer to join our dynamic team. The ideal candidate will have a strong foundation in Python programming and experience with web frameworks.\r\n\r\nResponsibilities:\r\n\u2022 Design and implement high-quality, scalable Python applications\r\n\u2022 Collaborate with cross-functional teams to define, design, and ship new features\r\n\u2022 Optimize applications for maximum speed and scalability\r\n\u2022 Write clean, maintainable, and efficient code\r\n\r\nRequirements:\r\n\u2022 5+ years of experience with Python development\r\n\u2022 Strong understanding of web frameworks such as Django or Flask\r\n\u2022 Experience with database design and ORM libraries\r\n\u2022 Knowledge of front-end technologies (HTML, CSS, JavaScript)\r\n\u2022 Bachelor's degree in Computer Science or related field\r\n\u2022 Excellent problem-solving skills and attention to detail"
+  },
+  "company_info": {
+    "mission": "To create innovative software solutions that empower businesses to achieve their full potential.",
+    "vision": "To be the leading provider of custom software solutions, recognized for our technical excellence and client-focused approach.",
+    "core_values": [
+      "Excellence in everything we do",
+      "Innovation and continuous learning",
+      "Collaboration and teamwork",
+      "Client-centered focus",
+      "Integrity and transparency"
+    ],
+    "raw_text": "Company: TechInnovate Solutions\r\n\r\nMission: To create innovative software solutions that empower businesses to achieve their full potential.\r\n\r\nVision: To be the leading provider of custom software solutions, recognized for our technical excellence and client-focused approach.\r\n\r\nCore Values:\r\n\u2022 Excellence in everything we do\r\n\u2022 Innovation and continuous learning\r\n\u2022 Collaboration and teamwork\r\n\u2022 Client-centered focus\r\n\u2022 Integrity and transparency"
+  },
+  "candidate_info": {
+    "name": "John Smith",
+    "email": "john.smith@example.com",
+    "skills": [
+      "Python",
+      "Django",
+      "Flask",
+      "FastAPI",
+      "JavaScript",
+      "React",
+      "HTML",
+      "CSS",
+      "PostgreSQL",
+      "MongoDB",
+      "Redis",
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Git",
+      "CI/CD pipelines"
+    ],
+    "work_experience": [
+      {
+        "company": "d Python Developer with 7 years of expertise in building web applications using Django and Flask. Skilled in database design",
+        "title": "Developer",
+        "dates": "",
+        "duration_years": 7
+      }
+    ],
+    "education": [
+      {
+        "degree": "Bachelor of Science in Computer Science",
+        "year": ""
+      }
+    ],
+    "raw_text": "John Smith\r\njohn.smith@example.com\r\n(555) 123-4567\r\n\r\nSUMMARY\r\nExperienced Python Developer with 7 years of expertise in building web applications using Django and Flask. Skilled in database design, API development, and cloud infrastructure.\r\n\r\nSKILLS\r\n\u2022 Python, Django, Flask, FastAPI\r\n\u2022 JavaScript, React, HTML, CSS\r\n\u2022 PostgreSQL, MongoDB, Redis\r\n\u2022 AWS, Docker, Kubernetes\r\n\u2022 Git, CI/CD pipelines\r\n\r\nWORK EXPERIENCE\r\n\r\nSenior Python Developer\r\nDataTech Solutions, Jan 2020 - Present\r\n\u2022 Developed and maintained multiple Django applications serving 10,000+ daily active users\r\n\u2022 Redesigned API architecture, improving response times by 40%\r\n\u2022 Implemented automated testing procedures, increasing code coverage from 65% to 90%\r\n\u2022 Mentored junior developers and conducted code reviews\r\n\r\nPython Developer\r\nWebFront Systems, June 2017 - Dec 2019\r\n\u2022 Built RESTful APIs using Flask for mobile and web applications\r\n\u2022 Integrated third-party services including payment gateways and analytics tools\r\n\u2022 Optimized database queries, reducing load times by 30%\r\n\r\nEDUCATION\r\nBachelor of Science in Computer Science\r\nUniversity of Technology, 2017"
+  },
+  "match_analysis": {
+    "skill_match_percentage": 0.0,
+    "common_skills": [],
+    "missing_skills": [
+      "and attention to detail"
+    ],
+    "experience_match": true,
+    "education_match": false
+  },
+  "script": [
+    {
+      "type": "technical",
+      "question": "Can you explain the differences between Django and Flask in terms of architecture and use cases?"
+    },
+    {
+      "type": "technical",
+      "question": "How would you optimize a PostgreSQL database query for better performance?"
+    },
+    {
+      "type": "experience",
+      "question": "Can you describe a challenging project you worked on that involved integrating multiple systems using APIs?"
+    },
+    {
+      "type": "experience",
+      "question": "Tell us about a time when you had to refactor a large codebase to improve scalability. What approach did you take?"
+    },
+    {
+      "type": "behavioral",
+      "question": "How do you handle conflicts or disagreements within a team when working on a project?"
+    },
+    {
+      "type": "behavioral",
+      "question": "Give an example of a situation where you had to meet a tight deadline. How did you ensure timely delivery without compromising quality?"
+    },
+    {
+      "type": "company_culture",
+      "question": "How do you ensure continuous learning and innovation in your work process?"
+    },
+    {
+      "type": "company_culture",
+      "question": "Can you share a time when you demonstrated a client-centered focus in a project you worked on?"
+    },
+    {
+      "type": "skill",
+      "question": "Walk us through a project where you used FastAPI. What were the key features and challenges you encountered?"
+    },
+    {
+      "type": "skill",
+      "question": "Explain your experience with AWS services like EC2, S3, or RDS. How have you utilized these services in previous projects?"
+    },
+    {
+      "type": "missing_skill",
+      "question": "While you have a strong technical skill set, how do you ensure attention to detail in your code and project deliverables?"
+    },
+    {
+      "type": "missing_skill",
+      "question": "In what ways do you think improving your attention to detail could enhance the quality of your work as a Senior Python Developer?"
+    }
+  ],
+  "interview_duration": 5,
+  "created_at": "2025-03-28T20:36:50.502061"
+}

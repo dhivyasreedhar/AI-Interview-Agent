@@ -5,11 +5,17 @@ import datetime
 from typing import Dict, Any, Optional, List, Tuple
 import uuid
 import csv
+import requests
+from dotenv import load_dotenv
+import time
+
+# Load environment variables for OpenAI API
+load_dotenv("/Users/dhivyasreedhar/Desktop/AI Interview Agent/env.env")
 
 # Import our modules
 from document_processor import DocumentProcessor
 from question_generator import QuestionGenerator
-from conversation_manager import ConversationManager
+from conversation_manager import ConversationManager, OpenAIProxy  # Import OpenAIProxy from conversation_manager
 
 class InterviewAgent:
     """
@@ -20,10 +26,11 @@ class InterviewAgent:
         self.document_processor = DocumentProcessor()
         self.question_generator = QuestionGenerator()
         self.conversation_manager = None
+        self.openai_proxy = OpenAIProxy()  # Initialize OpenAI proxy
         
         # Store processed documents
         self.job_info = None
-        self.company_info = None
+        self.company_info = None                            
         self.candidate_info = None
         self.match_analysis = None
         
@@ -31,7 +38,7 @@ class InterviewAgent:
         self.interview_in_progress = False
         self.interview_complete = False
         self.interview_summary = None
-        self.interview_id = None
+        self.interview_id = str(uuid.uuid4())  # Generate ID at initialization
         
         # Interview timing
         self.interview_start_time = None
@@ -62,7 +69,24 @@ class InterviewAgent:
         """
         if self.debug_mode:
             print(f"Processing job posting: {len(job_posting_text)} characters")
+        
+        # Use OpenAI to enhance the job posting analysis
+        try:
+            enhanced_job_info = self._enhance_job_analysis_with_openai(job_posting_text)
+            if enhanced_job_info:
+                self.job_info = enhanced_job_info
+                
+                if self.debug_mode:
+                    print(f"Using OpenAI-enhanced job analysis")
+                    print(f"Extracted job title: {self.job_info.get('title', 'Unknown')}")
+                    print(f"Identified {len(self.job_info.get('skills', []))} required skills")
+                
+                return self.job_info
+        except Exception as e:
+            if self.debug_mode:
+                print(f"OpenAI job analysis failed: {str(e)}. Falling back to standard processor.")
             
+        # Fallback to standard processor if OpenAI fails
         self.job_info = self.document_processor.process_job_posting(job_posting_text)
         
         if self.debug_mode:
@@ -70,6 +94,55 @@ class InterviewAgent:
             print(f"Identified {len(self.job_info.get('skills', []))} required skills")
             
         return self.job_info
+    
+    def _enhance_job_analysis_with_openai(self, job_posting_text: str) -> Optional[Dict[str, Any]]:
+        """
+        Use OpenAI to enhance the job posting analysis.
+        
+        Args:
+            job_posting_text: Raw text of the job posting
+            
+        Returns:
+            Enhanced job information or None if failed
+        """
+        prompt = f"""
+Analyze this job posting and extract the following information in JSON format:
+- title: The job title
+- company_name: The name of the company (if mentioned)
+- skills: An array of specific technical skills required (be comprehensive and detailed)
+- responsibilities: An array of key job responsibilities
+- qualifications: An array of required qualifications
+- experience_level: The years of experience required
+- education: The educational requirements
+- location: Job location (if mentioned)
+- remote_status: Whether the job is remote, hybrid, or on-site
+
+Job Posting:
+{job_posting_text}
+
+Respond ONLY with a valid JSON object.
+"""
+        
+        try:
+            response = self.openai_proxy.get_response(
+                self.interview_id,
+                prompt,
+                system_prompt="You are an expert at analyzing job postings. Extract detailed and accurate information in JSON format only."
+            )
+            
+            # Try to parse the JSON response
+            try:
+                job_info = json.loads(response)
+                return job_info
+            except json.JSONDecodeError:
+                if self.debug_mode:
+                    print("Failed to parse OpenAI response as JSON")
+                return None
+                
+        except Exception as e:
+            if self.debug_mode:
+                print(f"OpenAI job analysis request failed: {str(e)}")
+            return None
     
     def load_company_profile(self, company_profile_text: str) -> Dict[str, Any]:
         """
@@ -83,7 +156,24 @@ class InterviewAgent:
         """
         if self.debug_mode:
             print(f"Processing company profile: {len(company_profile_text)} characters")
-            
+        
+        # Try to enhance with OpenAI
+        try:
+            enhanced_company_info = self._enhance_company_analysis_with_openai(company_profile_text)
+            if enhanced_company_info:
+                self.company_info = enhanced_company_info
+                
+                if self.debug_mode:
+                    print(f"Using OpenAI-enhanced company analysis")
+                    print(f"Extracted mission: {self.company_info.get('mission', 'None')[:50]}...")
+                    print(f"Identified {len(self.company_info.get('core_values', []))} core values")
+                
+                return self.company_info
+        except Exception as e:
+            if self.debug_mode:
+                print(f"OpenAI company analysis failed: {str(e)}. Falling back to standard processor.")
+        
+        # Fallback to standard processor
         self.company_info = self.document_processor.process_company_profile(company_profile_text)
         
         if self.debug_mode:
@@ -91,6 +181,55 @@ class InterviewAgent:
             print(f"Identified {len(self.company_info.get('core_values', []))} core values")
             
         return self.company_info
+    
+    def _enhance_company_analysis_with_openai(self, company_profile_text: str) -> Optional[Dict[str, Any]]:
+        """
+        Use OpenAI to enhance the company profile analysis.
+        
+        Args:
+            company_profile_text: Raw text of the company profile
+            
+        Returns:
+            Enhanced company information or None if failed
+        """
+        prompt = f"""
+Analyze this company profile and extract the following information in JSON format:
+- name: The company name
+- mission: The company's mission statement
+- vision: The company's vision statement (if mentioned)
+- core_values: An array of company core values
+- culture: A description of the company culture
+- industry: The company's industry
+- products: A brief description of the company's main products or services
+- size: Company size (if mentioned)
+- founding_year: When the company was founded (if mentioned)
+
+Company Profile:
+{company_profile_text}
+
+Respond ONLY with a valid JSON object.
+"""
+        
+        try:
+            response = self.openai_proxy.get_response(
+                self.interview_id,
+                prompt,
+                system_prompt="You are an expert at analyzing company profiles. Extract detailed and accurate information in JSON format only."
+            )
+            
+            # Try to parse the JSON response
+            try:
+                company_info = json.loads(response)
+                return company_info
+            except json.JSONDecodeError:
+                if self.debug_mode:
+                    print("Failed to parse OpenAI response as JSON")
+                return None
+                
+        except Exception as e:
+            if self.debug_mode:
+                print(f"OpenAI company analysis request failed: {str(e)}")
+            return None
     
     def load_resume(self, resume_text: str) -> Dict[str, Any]:
         """
@@ -104,7 +243,25 @@ class InterviewAgent:
         """
         if self.debug_mode:
             print(f"Processing resume: {len(resume_text)} characters")
-            
+        
+        # Try to enhance with OpenAI
+        try:
+            enhanced_candidate_info = self._enhance_resume_analysis_with_openai(resume_text)
+            if enhanced_candidate_info:
+                self.candidate_info = enhanced_candidate_info
+                
+                if self.debug_mode:
+                    print(f"Using OpenAI-enhanced resume analysis")
+                    print(f"Extracted candidate name: {self.candidate_info.get('name', 'Unknown')}")
+                    print(f"Identified {len(self.candidate_info.get('skills', []))} skills")
+                    print(f"Extracted {len(self.candidate_info.get('work_experience', []))} work experiences")
+                
+                return self.candidate_info
+        except Exception as e:
+            if self.debug_mode:
+                print(f"OpenAI resume analysis failed: {str(e)}. Falling back to standard processor.")
+                
+        # Fallback to standard processor
         self.candidate_info = self.document_processor.process_resume(resume_text)
         
         if self.debug_mode:
@@ -113,6 +270,63 @@ class InterviewAgent:
             print(f"Extracted {len(self.candidate_info.get('work_experience', []))} work experiences")
             
         return self.candidate_info
+    
+    def _enhance_resume_analysis_with_openai(self, resume_text: str) -> Optional[Dict[str, Any]]:
+        """
+        Use OpenAI to enhance the resume analysis.
+        
+        Args:
+            resume_text: Raw text of the candidate's resume
+            
+        Returns:
+            Enhanced candidate information or None if failed
+        """
+        prompt = f"""
+Analyze this resume and extract the following information in JSON format:
+- name: The candidate's full name
+- email: Contact email
+- phone: Contact phone
+- skills: A comprehensive array of ALL technical and soft skills mentioned (be as detailed as possible)
+- work_experience: An array of work experiences, each containing:
+  * company: Company name
+  * title: Job title
+  * start_date: Start date
+  * end_date: End date or "Present"
+  * description: Key responsibilities and achievements
+- education: An array of education entries, each containing:
+  * institution: School/university name
+  * degree: Degree obtained
+  * field: Field of study
+  * graduation_date: Graduation date
+- certifications: An array of professional certifications
+- years_of_experience: Estimated total years of professional experience
+
+Resume:
+{resume_text}
+
+Respond ONLY with a valid JSON object.
+"""
+        
+        try:
+            response = self.openai_proxy.get_response(
+                self.interview_id,
+                prompt,
+                system_prompt="You are an expert at analyzing resumes. Extract detailed and accurate information in JSON format only."
+            )
+            
+            # Try to parse the JSON response
+            try:
+                candidate_info = json.loads(response)
+                return candidate_info
+            except json.JSONDecodeError:
+                if self.debug_mode:
+                    print("Failed to parse OpenAI response as JSON")
+                return None
+                
+        except Exception as e:
+            if self.debug_mode:
+                print(f"OpenAI resume analysis request failed: {str(e)}")
+            return None
     
     def analyze_candidate_job_match(self) -> Dict[str, Any]:
         """
@@ -127,6 +341,24 @@ class InterviewAgent:
         if self.debug_mode:
             print("Analyzing candidate-job match...")
             
+        # Try to enhance with OpenAI
+        try:
+            enhanced_match_analysis = self._enhance_match_analysis_with_openai()
+            if enhanced_match_analysis:
+                self.match_analysis = enhanced_match_analysis
+                
+                if self.debug_mode:
+                    print(f"Using OpenAI-enhanced match analysis")
+                    print(f"Skill match percentage: {self.match_analysis.get('skill_match_percentage', 0):.1f}%")
+                    print(f"Common skills: {len(self.match_analysis.get('common_skills', []))}")
+                    print(f"Missing skills: {len(self.match_analysis.get('missing_skills', []))}")
+                
+                return self.match_analysis
+        except Exception as e:
+            if self.debug_mode:
+                print(f"OpenAI match analysis failed: {str(e)}. Falling back to standard processor.")
+                
+        # Fallback to standard processor
         self.match_analysis = self.document_processor.analyze_match(self.job_info, self.candidate_info)
         
         if self.debug_mode:
@@ -135,6 +367,75 @@ class InterviewAgent:
             print(f"Missing skills: {len(self.match_analysis.get('missing_skills', []))}")
             
         return self.match_analysis
+    
+    def _enhance_match_analysis_with_openai(self) -> Optional[Dict[str, Any]]:
+        """
+        Use OpenAI to enhance the match analysis.
+        
+        Returns:
+            Enhanced match analysis or None if failed
+        """
+        # Prepare job and candidate information for the prompt
+        job_skills = ", ".join(self.job_info.get('skills', []))
+        job_responsibilities = ", ".join(self.job_info.get('responsibilities', []))
+        job_qualifications = ", ".join(self.job_info.get('qualifications', [])) if 'qualifications' in self.job_info else ""
+        
+        candidate_skills = ", ".join(self.candidate_info.get('skills', []))
+        candidate_experience = []
+        for exp in self.candidate_info.get('work_experience', []):
+            exp_str = f"{exp.get('title', 'Unknown')} at {exp.get('company', 'Unknown')}"
+            if 'description' in exp:
+                exp_str += f": {exp.get('description', '')[:100]}..."
+            candidate_experience.append(exp_str)
+        
+        experience_text = "\n".join(f"- {exp}" for exp in candidate_experience)
+        
+        prompt = f"""
+Analyze how well the candidate matches the job requirements and provide a detailed match analysis in JSON format:
+
+JOB REQUIREMENTS:
+- Title: {self.job_info.get('title', 'Unknown')}
+- Skills required: {job_skills}
+- Responsibilities: {job_responsibilities}
+- Qualifications: {job_qualifications}
+
+CANDIDATE PROFILE:
+- Skills: {candidate_skills}
+- Experience:
+{experience_text}
+
+Create a JSON object with the following:
+- skill_match_percentage: A percentage (0-100) indicating how well the candidate's skills match the job requirements
+- common_skills: An array of skills that both the job requires and the candidate possesses
+- missing_skills: An array of skills required by the job but not listed in the candidate's profile
+- experience_relevance: A percentage (0-100) indicating how relevant the candidate's experience is to the job
+- key_strengths: An array of the candidate's top strengths relevant to this position
+- areas_for_improvement: An array of areas where the candidate could improve to better match the job
+- overall_fit: A percentage (0-100) indicating the overall fit considering both skills and experience
+
+Respond ONLY with a valid JSON object.
+"""
+        
+        try:
+            response = self.openai_proxy.get_response(
+                self.interview_id,
+                prompt,
+                system_prompt="You are an expert at analyzing job-candidate fit. Provide detailed and accurate analysis in JSON format only."
+            )
+            
+            # Try to parse the JSON response
+            try:
+                match_analysis = json.loads(response)
+                return match_analysis
+            except json.JSONDecodeError:
+                if self.debug_mode:
+                    print("Failed to parse OpenAI response as JSON")
+                return None
+                
+        except Exception as e:
+            if self.debug_mode:
+                print(f"OpenAI match analysis request failed: {str(e)}")
+            return None
     
     def generate_interview_script(self) -> List[Dict[str, str]]:
         """
@@ -148,7 +449,27 @@ class InterviewAgent:
         
         if self.debug_mode:
             print("Generating interview script...")
-            
+        
+        # Try to enhance with OpenAI
+        try:
+            enhanced_script = self._generate_script_with_openai()
+            if enhanced_script and len(enhanced_script) > 0:
+                script = enhanced_script
+                
+                if self.debug_mode:
+                    print(f"Using OpenAI-enhanced interview script")
+                    print(f"Generated {len(script)} interview questions")
+                    for i, q in enumerate(script[:3], 1):
+                        print(f"Sample Q{i} ({q['type']}): {q['question'][:50]}...")
+                    if len(script) > 3:
+                        print("...")
+                        
+                return script
+        except Exception as e:
+            if self.debug_mode:
+                print(f"OpenAI script generation failed: {str(e)}. Falling back to standard generator.")
+                
+        # Fallback to standard generator
         script = self.question_generator.generate_interview_script(
             self.job_info, 
             self.company_info, 
@@ -164,6 +485,96 @@ class InterviewAgent:
                 print("...")
                 
         return script
+    
+    def _generate_script_with_openai(self) -> Optional[List[Dict[str, str]]]:
+        """
+        Use OpenAI to generate an interview script.
+        
+        Returns:
+            Enhanced interview script or None if failed
+        """
+        # Prepare job and candidate information for the prompt
+        job_title = self.job_info.get('title', 'Unknown')
+        job_skills = ", ".join(self.job_info.get('skills', []))
+        job_responsibilities = ", ".join(self.job_info.get('responsibilities', []))
+        
+        company_values = ", ".join(self.company_info.get('core_values', []))
+        company_mission = self.company_info.get('mission', 'Unknown')
+        
+        candidate_skills = ", ".join(self.candidate_info.get('skills', []))
+        missing_skills = ", ".join(self.match_analysis.get('missing_skills', []))
+        common_skills = ", ".join(self.match_analysis.get('common_skills', []))
+        
+        prompt = f"""
+Create a comprehensive interview script for a {job_title} position. The candidate has these skills: {candidate_skills}
+
+The job requires these skills: {job_skills}
+Job responsibilities include: {job_responsibilities}
+
+The company values are: {company_values}
+Company mission: {company_mission}
+
+Common skills between job and candidate: {common_skills}
+Skills the candidate is missing: {missing_skills}
+
+Generate a complete interview script with 10-15 questions in JSON format. Each question should be an object with these fields:
+- type: The question type (choose from: "technical", "experience", "behavioral", "company_culture", "skill", "missing_skill")
+- question: The full text of the question
+
+Include a mix of:
+- Technical questions that assess their knowledge of relevant technologies
+- Experience questions about their past work
+- Behavioral questions to assess their soft skills
+- Culture fit questions relating to company values
+- Skill questions targeting their stated skills
+- Questions about missing skills to see if they have any exposure
+
+Response should be a valid JSON array of question objects.
+"""
+        
+        try:
+            response = self.openai_proxy.get_response(
+                self.interview_id,
+                prompt,
+                system_prompt="You are an expert technical interviewer. Create a comprehensive interview script in JSON format only."
+            )
+            
+            # Try to parse the JSON response
+            try:
+                # The response might be wrapped in ```json ... ``` or have other text
+                # Try to extract just the JSON part
+                if "```json" in response:
+                    json_text = response.split("```json")[1].split("```")[0].strip()
+                elif "```" in response:
+                    json_text = response.split("```")[1].split("```")[0].strip()
+                else:
+                    json_text = response.strip()
+                
+                script = json.loads(json_text)
+                
+                # Ensure it's a list
+                if not isinstance(script, list):
+                    if self.debug_mode:
+                        print("OpenAI did not return a list of questions")
+                    return None
+                
+                # Ensure each item has required fields
+                for item in script:
+                    if 'type' not in item or 'question' not in item:
+                        if self.debug_mode:
+                            print("Some questions are missing required fields")
+                        return None
+                
+                return script
+            except json.JSONDecodeError:
+                if self.debug_mode:
+                    print("Failed to parse OpenAI response as JSON")
+                return None
+                
+        except Exception as e:
+            if self.debug_mode:
+                print(f"OpenAI script generation request failed: {str(e)}")
+            return None
     
     def set_interview_duration(self, max_minutes: int) -> None:
         """
@@ -220,6 +631,8 @@ class InterviewAgent:
                 print(f"Time limit: {self.interview_max_duration} minutes")
             
         return first_question
+    
+ 
     
     def check_time_limit(self) -> Tuple[bool, int]:
         """
@@ -286,7 +699,27 @@ class InterviewAgent:
             }
             
         # Process the response normally
-        next_question, is_complete = self.conversation_manager.process_candidate_response(response)
+        conversation_result = self.conversation_manager.process_candidate_response(response)
+        
+        # Handle different return value formats
+        print(conversation_result)
+        if isinstance(conversation_result, tuple):
+            if len(conversation_result) == 2:
+                next_question, is_complete = conversation_result
+            elif len(conversation_result) == 3:
+                next_question, is_complete, _ = conversation_result  # Ignore the third value
+            else:
+                raise ValueError(f"Unexpected return format from conversation manager: {conversation_result}")
+        elif isinstance(conversation_result, dict):
+            # If it's a dictionary, extract the required values
+            next_question = conversation_result.get('next_question')
+            is_complete = conversation_result.get('is_complete', False)
+            
+            # You might also want to extract other fields if they exist
+            if next_question is None:
+                raise ValueError(f"Dictionary return from conversation manager missing 'next_question' field")
+        else:
+            raise ValueError(f"Unexpected return type from conversation manager: {type(conversation_result)}")
         
         if is_complete:
             self.interview_in_progress = False

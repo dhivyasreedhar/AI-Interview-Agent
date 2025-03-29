@@ -1,0 +1,13 @@
+{
+  "history": [
+    {
+      "speaker": "interviewer",
+      "text": "John Smith, could you share with me your background and what aspects of the Senior Python Developer role excite you the most, especially in terms of the responsibilities outlined in the job description?",
+      "timestamp": 1743030833.617388,
+      "question_type": "introduction"
+    }
+  ],
+  "current_index": 0,
+  "complete": false,
+  "interview_start_time": 1743030832.776693
+}

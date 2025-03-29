@@ -1,0 +1,7 @@
+interview_id,date,time,candidate_name,job_title,overall_score,recommendation,technical_score,cultural_fit_score,communication_score,experience_relevance_score,skill_match_score,skill_match_percentage,duration_minutes,strengths_count,improvements_count,notes_count
+85bfede3-f6c7-480d-a604-e067b1f7582b,2025-03-28,19:38:17,John Smith,Senior Python Developer,0,Reject,0,0,0,0,0,0.0,3.578917332490285,0,5,0
+7e951465-e36c-4e26-939a-314d3ff2b730,2025-03-28,19:56:45,John Smith,Senior Python Developer,0,Reject,0,0,0,0,0,0.0,5.741114536921184,0,5,0
+14cb7fce-d97d-4087-b55c-76f61cffe661,2025-03-28,20:36:20,John Smith,Senior Python Developer,0,Reject,0,0,0,0,0,0.0,8.581723817189534,0,5,0
+dc58e59a-ad08-40c7-a361-c72b0b2cc831,2025-03-28,21:21:09,John Smith,Senior Python Developer,0,Reject,0,0,0,0,0,0.0,5.871489353974661,0,5,0
+b782c860-6dae-4775-b8a4-e502a27e9eda,2025-03-28,21:46:57,John Smith,Senior Python Developer,0,Reject,0,0,0,0,0,0.0,5.443341080347697,0,5,0
+79aeb624-ac98-419d-895f-e8f673c6ba04,2025-03-28,23:25:20,John Smith,Senior Python Developer,0,Reject,0,0,0,0,0,0.0,0.7732855161031087,0,5,0

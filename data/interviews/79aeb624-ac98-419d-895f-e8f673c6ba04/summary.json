@@ -1,0 +1,180 @@
+{
+  "candidate_name": "John Smith",
+  "job_title": "Senior Python Developer",
+  "interview_date": "2025-03-28",
+  "overall_score": 0,
+  "technical_score": 0,
+  "cultural_fit_score": 0,
+  "communication_score": 0,
+  "experience_relevance_score": 0,
+  "skill_match_score": 0,
+  "strengths": [],
+  "areas_for_improvement": [
+    "technical expertise",
+    "alignment with company values",
+    "communication ability",
+    "experience directly related to this role",
+    "specific skills required for this position"
+  ],
+  "recommendation": "Reject",
+  "notes": [],
+  "skill_match_percentage": 0.0,
+  "conversation_transcript": [
+    {
+      "speaker": "interviewer",
+      "text": "Can you share with me your background and what aspects of the Senior Python Developer role particularly excite you, John Smith?",
+      "timestamp": 1743218675.2317162,
+      "question_type": "introduction"
+    },
+    {
+      "speaker": "candidate",
+      "text": "can",
+      "timestamp": 1743218676.3452,
+      "in_response_to": null
+    },
+    {
+      "speaker": "interviewer",
+      "text": "Could you walk me through your approach to debugging a complex issue in a large codebase?",
+      "timestamp": 1743218676.3452318,
+      "question_type": "technical"
+    },
+    {
+      "speaker": "candidate",
+      "text": "no",
+      "timestamp": 1743218678.783629,
+      "in_response_to": null
+    },
+    {
+      "speaker": "interviewer",
+      "text": "Can you elaborate on your time at d Python Developer with 7 years of expertise in building web applications using Django and Flask. Skilled in database design? What specific skills or lessons did you develop there that you believe would be valuable for our Senior Python Developer role?",
+      "timestamp": 1743218678.783649,
+      "question_type": "experience"
+    },
+    {
+      "speaker": "candidate",
+      "text": "no",
+      "timestamp": 1743218681.006148,
+      "in_response_to": null
+    },
+    {
+      "speaker": "interviewer",
+      "text": "Describe a situation where you received constructive criticism. How did you respond to it?",
+      "timestamp": 1743218681.006177,
+      "question_type": "behavioral"
+    },
+    {
+      "speaker": "candidate",
+      "text": "no",
+      "timestamp": 1743218682.934221,
+      "in_response_to": null
+    },
+    {
+      "speaker": "interviewer",
+      "text": "What's your experience with code reviews, both giving and receiving feedback?",
+      "timestamp": 1743218682.934251,
+      "question_type": "technical"
+    },
+    {
+      "speaker": "candidate",
+      "text": "no",
+      "timestamp": 1743218685.162011,
+      "in_response_to": null
+    },
+    {
+      "speaker": "interviewer",
+      "text": "Our company mission is centered around create. How does this align with your personal or professional values?",
+      "timestamp": 1743218685.1620412,
+      "question_type": "company_culture"
+    },
+    {
+      "speaker": "candidate",
+      "text": "bleh",
+      "timestamp": 1743218687.7377841,
+      "in_response_to": null
+    },
+    {
+      "speaker": "interviewer",
+      "text": "Can you tell me about a time when you had to deal with a difficult team member or stakeholder? How did you handle the situation?",
+      "timestamp": 1743218687.737822,
+      "question_type": "behavioral"
+    },
+    {
+      "speaker": "candidate",
+      "text": "cannot",
+      "timestamp": 1743218691.4900732,
+      "in_response_to": null
+    },
+    {
+      "speaker": "interviewer",
+      "text": "Our Senior Python Developer role requires experience with and attention to detail, which I don't see explicitly mentioned on your resume. Do you have any experience with this that you'd like to share?",
+      "timestamp": 1743218691.4901,
+      "question_type": "missing_skill"
+    },
+    {
+      "speaker": "candidate",
+      "text": "no",
+      "timestamp": 1743218696.255574,
+      "in_response_to": null
+    },
+    {
+      "speaker": "interviewer",
+      "text": "One of our core values is Excellence in everything we do. Can you share an example from your past experience that demonstrates how you embody this value?",
+      "timestamp": 1743218696.255593,
+      "question_type": "company_culture"
+    },
+    {
+      "speaker": "candidate",
+      "text": "i cannot",
+      "timestamp": 1743218702.101656,
+      "in_response_to": null
+    },
+    {
+      "speaker": "interviewer",
+      "text": "If you were falling behind on a deadline, what would your approach be?",
+      "timestamp": 1743218702.101671,
+      "question_type": "situational"
+    },
+    {
+      "speaker": "candidate",
+      "text": "i would quit",
+      "timestamp": 1743218707.5664499,
+      "in_response_to": null
+    },
+    {
+      "speaker": "interviewer",
+      "text": "If you were falling behind on a deadline, what would your approach be?",
+      "timestamp": 1743218707.56647,
+      "question_type": "situational"
+    },
+    {
+      "speaker": "candidate",
+      "text": "i would quit",
+      "timestamp": 1743218712.7505128,
+      "in_response_to": null
+    },
+    {
+      "speaker": "interviewer",
+      "text": "One of our core values is Excellence in everything we do. Can you share an example from your past experience that demonstrates how you embody this value?",
+      "timestamp": 1743218712.750543,
+      "question_type": "company_culture"
+    },
+    {
+      "speaker": "candidate",
+      "text": "no",
+      "timestamp": 1743218716.7807271,
+      "in_response_to": null
+    },
+    {
+      "speaker": "interviewer",
+      "text": "Do you have any questions for me about the Senior Python Developer role or about working at our company?",
+      "timestamp": 1743218716.780742,
+      "question_type": "closing"
+    },
+    {
+      "speaker": "candidate",
+      "text": "no",
+      "timestamp": 1743218720.283221,
+      "in_response_to": null
+    }
+  ]
+}

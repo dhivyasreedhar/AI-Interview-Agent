@@ -1,0 +1,13 @@
+{
+  "history": [
+    {
+      "speaker": "interviewer",
+      "text": "John Smith, can you walk me through your background and share what aspects of the Senior Python Developer position excite you the most, especially in terms of your experience with building scalable web applications and leading cross-functional teams?",
+      "timestamp": 1743210912.656331,
+      "question_type": "introduction"
+    }
+  ],
+  "current_index": 0,
+  "complete": true,
+  "interview_start_time": 1743210911.121054
+}

@@ -1,0 +1,32 @@
+John Smith
+john.smith@example.com
+(555) 123-4567
+
+SUMMARY
+Experienced Python Developer with 7 years of expertise in building web applications using Django and Flask. Skilled in database design, API development, and cloud infrastructure.
+
+SKILLS
+• Python, Django, Flask, FastAPI
+• JavaScript, React, HTML, CSS
+• PostgreSQL, MongoDB, Redis
+• AWS, Docker, Kubernetes
+• Git, CI/CD pipelines
+
+WORK EXPERIENCE
+
+Senior Python Developer
+DataTech Solutions, Jan 2020 - Present
+• Developed and maintained multiple Django applications serving 10,000+ daily active users
+• Redesigned API architecture, improving response times by 40%
+• Implemented automated testing procedures, increasing code coverage from 65% to 90%
+• Mentored junior developers and conducted code reviews
+
+Python Developer
+WebFront Systems, June 2017 - Dec 2019
+• Built RESTful APIs using Flask for mobile and web applications
+• Integrated third-party services including payment gateways and analytics tools
+• Optimized database queries, reducing load times by 30%
+
+EDUCATION
+Bachelor of Science in Computer Science
+University of Technology, 2017

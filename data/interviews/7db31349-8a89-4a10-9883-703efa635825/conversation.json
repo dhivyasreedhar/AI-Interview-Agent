@@ -1,0 +1,13 @@
+{
+  "history": [
+    {
+      "speaker": "interviewer",
+      "text": "John Smith, could you please share with us a bit about your background and what draws you to the Senior Python Developer role at our company, considering your experience with the specific technologies mentioned in the job description?",
+      "timestamp": 1743206412.376787,
+      "question_type": "introduction"
+    }
+  ],
+  "current_index": 0,
+  "complete": false,
+  "interview_start_time": 1743206409.116104
+}

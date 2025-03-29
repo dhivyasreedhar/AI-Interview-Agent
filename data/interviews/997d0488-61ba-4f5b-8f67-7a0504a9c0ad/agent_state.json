@@ -1,0 +1,186 @@
+{
+  "job_info": {
+    "title": "Senior Python Developer",
+    "company_name": null,
+    "skills": [
+      "Python programming",
+      "Web frameworks (Django, Flask)",
+      "Database design",
+      "ORM libraries",
+      "Front-end technologies (HTML, CSS, JavaScript)"
+    ],
+    "responsibilities": [
+      "Design and implement high-quality, scalable Python applications",
+      "Collaborate with cross-functional teams to define, design, and ship new features",
+      "Optimize applications for maximum speed and scalability",
+      "Write clean, maintainable, and efficient code"
+    ],
+    "qualifications": [
+      "5+ years of experience with Python development",
+      "Strong understanding of web frameworks such as Django or Flask",
+      "Experience with database design and ORM libraries",
+      "Knowledge of front-end technologies (HTML, CSS, JavaScript)",
+      "Bachelor's degree in Computer Science or related field",
+      "Excellent problem-solving skills and attention to detail"
+    ],
+    "experience_level": "5+ years",
+    "education": "Bachelor's degree in Computer Science or related field",
+    "location": null,
+    "remote_status": null
+  },
+  "company_info": {
+    "name": "TechInnovate Solutions",
+    "mission": "To create innovative software solutions that empower businesses to achieve their full potential.",
+    "vision": "To be the leading provider of custom software solutions, recognized for our technical excellence and client-focused approach.",
+    "core_values": [
+      "Excellence in everything we do",
+      "Innovation and continuous learning",
+      "Collaboration and teamwork",
+      "Client-centered focus",
+      "Integrity and transparency"
+    ],
+    "culture": null,
+    "industry": null,
+    "products": "TechInnovate Solutions provides custom software solutions for businesses.",
+    "size": null,
+    "founding_year": null
+  },
+  "candidate_info": {
+    "name": "John Smith",
+    "email": "john.smith@example.com",
+    "phone": "(555) 123-4567",
+    "skills": [
+      "Python",
+      "Django",
+      "Flask",
+      "FastAPI",
+      "JavaScript",
+      "React",
+      "HTML",
+      "CSS",
+      "PostgreSQL",
+      "MongoDB",
+      "Redis",
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Git",
+      "CI/CD pipelines"
+    ],
+    "work_experience": [
+      {
+        "company": "DataTech Solutions",
+        "title": "Senior Python Developer",
+        "start_date": "Jan 2020",
+        "end_date": "Present",
+        "description": [
+          "Developed and maintained multiple Django applications serving 10,000+ daily active users",
+          "Redesigned API architecture, improving response times by 40%",
+          "Implemented automated testing procedures, increasing code coverage from 65% to 90%",
+          "Mentored junior developers and conducted code reviews"
+        ]
+      },
+      {
+        "company": "WebFront Systems",
+        "title": "Python Developer",
+        "start_date": "June 2017",
+        "end_date": "Dec 2019",
+        "description": [
+          "Built RESTful APIs using Flask for mobile and web applications",
+          "Integrated third-party services including payment gateways and analytics tools",
+          "Optimized database queries, reducing load times by 30%"
+        ]
+      }
+    ],
+    "education": [
+      {
+        "institution": "University of Technology",
+        "degree": "Bachelor of Science",
+        "field": "Computer Science",
+        "graduation_date": 2017
+      }
+    ],
+    "certifications": [],
+    "years_of_experience": 7
+  },
+  "match_analysis": {
+    "skill_match_percentage": 85,
+    "common_skills": [
+      "Python",
+      "Django",
+      "Flask",
+      "JavaScript",
+      "HTML",
+      "CSS"
+    ],
+    "missing_skills": [
+      "ORM libraries",
+      "Front-end technologies (JavaScript)"
+    ],
+    "experience_relevance": 90,
+    "key_strengths": [
+      "Python",
+      "Django",
+      "Flask",
+      "Database design",
+      "AWS"
+    ],
+    "areas_for_improvement": [
+      "ORM libraries",
+      "Front-end technologies (JavaScript)"
+    ],
+    "overall_fit": 88
+  },
+  "script": [
+    {
+      "type": "technical",
+      "question": "Can you explain the difference between Django and Flask in terms of architecture and use cases?"
+    },
+    {
+      "type": "technical",
+      "question": "How would you approach database design for a complex web application that needs to scale?"
+    },
+    {
+      "type": "experience",
+      "question": "Can you describe a challenging project you worked on where you had to optimize application speed and scalability? What was your approach and the outcome?"
+    },
+    {
+      "type": "experience",
+      "question": "Tell me about a time when you collaborated with cross-functional teams to deliver a project. How did you ensure effective communication and coordination?"
+    },
+    {
+      "type": "behavioral",
+      "question": "How do you handle tight deadlines and high-pressure situations while maintaining code quality and efficiency?"
+    },
+    {
+      "type": "behavioral",
+      "question": "Give an example of a situation where you had to resolve a conflict within a team. How did you approach it and what was the result?"
+    },
+    {
+      "type": "company_culture",
+      "question": "How do you ensure that your work reflects the value of excellence in everything you do as a developer?"
+    },
+    {
+      "type": "company_culture",
+      "question": "Can you share an example of a time when you contributed to a culture of innovation and continuous learning within a team?"
+    },
+    {
+      "type": "skill",
+      "question": "Explain your experience with React and how you have used it in previous projects."
+    },
+    {
+      "type": "skill",
+      "question": "How comfortable are you with setting up and managing CI/CD pipelines for continuous integration and deployment?"
+    },
+    {
+      "type": "missing_skill",
+      "question": "While you have strong experience in front-end technologies like HTML and CSS, how familiar are you with JavaScript frameworks for front-end development?"
+    },
+    {
+      "type": "missing_skill",
+      "question": "What exposure have you had to ORM libraries in Python development and how do you think they impact the efficiency of database interactions?"
+    }
+  ],
+  "interview_duration": 3,
+  "created_at": "2025-03-26T19:03:18.393926"
+}

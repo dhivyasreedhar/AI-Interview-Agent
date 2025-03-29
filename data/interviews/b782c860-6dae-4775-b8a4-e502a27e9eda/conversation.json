@@ -1,0 +1,13 @@
+{
+  "history": [
+    {
+      "speaker": "interviewer",
+      "text": "John Smith, tell me about yourself and what excites you about the Senior Python Developer role at our company, considering your experience with designing and developing robust, scalable applications using Python frameworks.",
+      "timestamp": 1743212491.450009,
+      "question_type": "introduction"
+    }
+  ],
+  "current_index": 0,
+  "complete": true,
+  "interview_start_time": 1743212490.6519082
+}
